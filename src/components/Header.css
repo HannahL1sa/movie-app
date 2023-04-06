@@ -1,0 +1,58 @@
+header {
+  background-color: #1b182b;
+  padding: 20px;
+  width: 100%;
+  
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+}
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+  }
+  
+  .app-name {
+    font-size: 28px;
+    margin: 0;
+    color: white;
+  }
+  
+  .search-form {
+    display: flex;
+    align-items: center;
+    height: 30px;
+  }
+  
+  input[type="text"] {
+    width: 400px;
+    padding: 8px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    margin-right: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: gold;
+    color: black;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  
