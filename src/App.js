@@ -2,7 +2,6 @@ import React from "react";
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from "./components/Home";
-import MovieSearch from "./components/MovieSearch";
 import MovieDetails from "./components/MovieDetails";
 
 

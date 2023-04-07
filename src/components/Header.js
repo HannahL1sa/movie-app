@@ -1,33 +1,31 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './Header.css';
 import { useNavigate } from 'react-router-dom';
 
-
 function Header() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
-  const API_KEY = process.env.REACT_APP_API_KEY;
 
-
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
+    searchForMovie(searchQuery);
+  };
+
+  const searchForMovie = async (query) => {
     try {
-      const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
-        params: {
-          api_key: API_KEY,
-          query: searchQuery
-        }
-      });
-      setSearchResults(response.data.results);
-      console.log(response.data.results);
-      console.log(searchResults);
-      navigate('/search'); 
+      const response = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${query}`);
+      const data = await response.json();
+      const firstResult = data.results[0];
+      if (firstResult) {
+        const movieId = firstResult.id;
+        navigate(`/movies/${movieId}`);
+      } else {
+        console.log(`No results found for "${query}"`);
+      }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <header>
@@ -46,3 +44,4 @@ function Header() {
 }
 
 export default Header;
+
