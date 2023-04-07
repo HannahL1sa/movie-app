@@ -3,9 +3,7 @@
 CinemaLib is a movie app built with React and Axios that allows users to browse and search for information on movies using the TMDB API. The app provides a user-friendly and interactive platform for movie enthusiasts to explore and share their love for movies.
 
 ## Features
-Browse movies by genre, rating, release year, and other filters
-Search for specific movies by title or keywords
-Display detailed pages about each movie, including runtime, cast, crew, user reviews, trailers
+The app allows users to browse movies by genre, rating, release year, and other filters, and also search for specific movies by title or keywords. Detailed pages about each movie are displayed, including runtime, cast, crew, user reviews, and movie trailers. It also displays detailed pages about each movie, including runtime, cast, crew, user reviews, trailers
 
 ## Technologies Used
 React for the frontend
