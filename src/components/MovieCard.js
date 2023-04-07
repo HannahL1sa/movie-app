@@ -11,21 +11,22 @@ function MovieCard() {
   const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
+    const getMovies = async () => {
+      try {
+        const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
+          params: {
+            api_key: API_KEY
+          }
+        });
+        setMovies(response.data.results);
+      } catch (error) {
+        setError('Failed to fetch popular movies');
+      }
+    };
     getMovies();
   }, []);
+  
 
-  const getMovies = async () => {
-    try {
-      const response = await axios.get('https://api.themoviedb.org/3/movie/popular', {
-        params: {
-          api_key: API_KEY
-        }
-      });
-      setMovies(response.data.results);
-    } catch (error) {
-      setError('Failed to fetch popular movies');
-    }
-  };
 
   const handleCardClick = (movie) => {
     navigate(`/movies/${movie.id}`);
@@ -41,14 +42,7 @@ function MovieCard() {
         {movies.map((movie) => (
           <div className="movie-card" key={movie.id}  onClick={() => handleCardClick(movie)}>
             <img className="movie-card-image" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} />
-            <div className="movie-card-content">
-              <div className="movie-title">
-                <p>{movie.title}</p>
-              </div>
-              <div className="movie-rating">
-                  <span className="movie-star">&#9733;</span> {movie.vote_average}
-              </div>
-            </div>
+            <p className="movie-title">{movie.title}</p>
           </div>
         ))}
       </div>

@@ -37,26 +37,11 @@
   border-top-right-radius: 5px;
 }
 
-.movie-card-content {
-  margin-top: 0%;
- font-size: 14px;
- padding: 20px;
-}
-
 .movie-title {
+  font-size: 18px;
   font-weight: bold;
-  margin: 0;
-}
-
-.movie-rating {
-  background-color: #0062cc;
-  border-radius: 5px;
-  width: 40px;
-  padding: 5px;
+  text-align: center;
 }
 
 
-.movie-star {
-  color: gold;
-}
 
