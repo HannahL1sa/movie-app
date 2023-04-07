@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import './MovieSearch.css';
 
@@ -19,5 +20,5 @@ function MovieSearch({searchResults}) {
 
 export default MovieSearch;
 
-
+*/
 

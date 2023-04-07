@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Header.css';
-import MovieSearch from './MovieSearch'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -9,6 +8,7 @@ function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
 
   const handleSearch = async (e) => {
@@ -16,7 +16,7 @@ function Header() {
     try {
       const response = await axios.get('https://api.themoviedb.org/3/search/movie', {
         params: {
-          api_key: '16281744c518ab50f70f6802974c80ea',
+          api_key: API_KEY,
           query: searchQuery
         }
       });
@@ -41,7 +41,6 @@ function Header() {
           <button type="submit">Search</button>
         </form>
       </div>
-      <MovieSearch search={searchResults} />
     </header>
   );
 }
