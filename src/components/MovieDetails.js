@@ -7,84 +7,119 @@ import './MovieDetails.css';
 function MovieDetails() {
   const { id } = useParams();
   const [trailerKey, setTrailerKey] = useState("");
-  const [selectedMovie, setSelectedMovie] = useState();
+  const [selectedMovie, setSelectedMovie] = useState("");
   const API_KEY = process.env.REACT_APP_API_KEY;
+  const calendar = require('../images/calendar.png');
+  const time = require('../images/time.png');
+  const star = require('../images/star.png');
+  const genre = require('../images/genre.png');
 
-  console.log({id}); // log the value of movieId to the console
-
-    useEffect(() => {
-        getMovie();
-    }, []);
-
-    const getMovie = () => {
-      axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
+  /*
+  const getMovie = () => {
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${id}`, {
         params: {
           api_key: API_KEY
         }
       })
-        .then(response => {
-          setSelectedMovie(response.data);
-          console.log(setSelectedMovie);
-        })
-        .catch(error => {
-          console.log(error);
-        });
-      };
+      .then(response => {
+        setSelectedMovie(response.data);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
-    
-      const getTrailer = (id) => {
-        axios.get(`https://api.themoviedb.org/3/movie/${id}/videos`, {
+  useEffect(() => {
+    getMovie();
+  }, []);
+*/
+  useEffect(() => {
+    const getMovie = async () => {
+      try {
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, {
           params: {
-            api_key: '16281744c518ab50f70f6802974c80ea'
+            api_key: API_KEY
           }
-        })
-        .then(response => {
-          const trailers = response.data.results.filter(result => result.type === "Trailer");
-          if (trailers.length > 0) {
-            setTrailerKey(trailers[0].key);
-          }
-        })
-        .catch(error => {
-          console.log(error);
         });
-      };
+        setSelectedMovie(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getMovie();
+  }, [id, API_KEY]);
 
 
-      return (
-        <div className="container-horizontal">
-          {selectedMovie && (
-            <div className="card-horizontal">
-              <img className="poster-horizontal" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`} alt={selectedMovie.title} />
-              <div className="details-horizontal">
-                <h3 className="title-horizontal">{selectedMovie.title}</h3>
-                <div className="info-horizontal">
-                  <p className="rating-horizontal"><span className="star-horizontal">&#9733;</span>{selectedMovie.vote_average}</p>
-                  <p className="genre-horizontal">{selectedMovie.genres.map(genre => genre.name).join(", ")}</p>
-                  <p className="length-horizontal">{selectedMovie.runtime} minutes</p>
-                </div>
-                <p className="release-date-horizontal">Release Date: {selectedMovie.release_date}</p>
-                <p className="overview-horizontal">{selectedMovie.overview}</p>
-                <div className="footer-horizontal">
-                    <button className="button-horizontal" onClick={() => getTrailer(selectedMovie.id)} aria-label={`Watch trailer of ${selectedMovie.title}`}>&#9658; Watch Trailer</button>
-                </div>
-                {trailerKey && (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${trailerKey}`}
-                    title={`${selectedMovie.title} trailer`}
-                    className="iframe"
-                    frameBorder="0"
-                    allowFullScreen
-                    aria-label={`${selectedMovie.title} trailer`}
-                  ></iframe>
-                )}
-                </div>
-              </div>
-          )}
+  const getTrailer = (id) => {
+    axios.get(`https://api.themoviedb.org/3/movie/${id}/videos`, {
+      params: {
+        api_key: API_KEY
+      }
+    })
+    .then(response => {
+      const trailers = response.data.results.filter(result => result.type === "Trailer");
+      if (trailers.length > 0) {
+        setTrailerKey(trailers[0].key);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  };
+
+
+  return (
+  <div className="container-horizontal">
+    {selectedMovie && (
+    <div className="card-horizontal">
+      <img className="poster-horizontal" src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`} alt={selectedMovie.title} />
+      <div className="details-horizontal">
+        <h3 className="title-horizontal">{selectedMovie.title}</h3>
+        <div className="info-horizontal">
+          <div className="info-pair"> 
+            <img src={calendar} className="calendar" alt="calendar" />
+            <p className="release-date-horizontal">{selectedMovie.release_date && new Date(selectedMovie.release_date).getFullYear()}</p>
+          </div>
+          <div className="info-pair">
+            <img src={genre} className="genre" alt="genre" />
+            <p className="genre-horizontal">{selectedMovie.genres.slice(0, 3).map(genre => genre.name).join(", ")}</p>
+          </div>
+          <div className="info-pair">
+            <img src={time} className="time" alt="time" />
+            <p className="length-horizontal">{Math.floor(selectedMovie.runtime / 60)}h {selectedMovie.runtime % 60}m</p>
+          </div>
+          <div className="info-pair">
+            <img src={star} className="star" alt="star" />
+            <p className="rating-horizontal">{selectedMovie.vote_average.toFixed(1)}</p>
+          </div>
         </div>
-      );
-      
-      
-      
+        <div className="overview-horizontal">
+          <p className="overview-title">SYNOPSIS</p>
+          <p className="overview-info">{selectedMovie.overview}</p>
+        </div>
+        <div className="footer-horizontal">
+          <button className="button-horizontal" onClick={() => getTrailer(selectedMovie.id)} aria-label={`Watch trailer of ${selectedMovie.title}`}>&#9658; Watch Trailer</button>
+        </div>
+        {trailerKey && (
+          <iframe 
+            src={`https://www.youtube.com/embed/${trailerKey}`}
+            title={`${selectedMovie.title} trailer`}
+            className="iframe"
+            frameBorder="0"
+            allowFullScreen
+            aria-label={`${selectedMovie.title} trailer`}
+        ></iframe>
+      )}
+        </div>
+        </div>
+        )}
+        </div>
+  );
+       
 }
 
 export default MovieDetails;
