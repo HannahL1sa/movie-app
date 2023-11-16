@@ -4,5 +4,5 @@ CinemaLib is a movie app built with React and Axios that allows users to browse 
 
 ## Tech Stack
 
-- Frontend Framework: [React] (https://react.dev/)
-- API Integration: [TMDB API](https://developer.themoviedb.org/docs).
+- Frontend Framework: [React](https://react.dev/)
+- API Integration: [TMDB API](https://developer.themoviedb.org/docs)
