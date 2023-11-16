@@ -1,0 +1,46 @@
+.movie-container {
+  color: white;
+}
+
+.trending h1{
+  font-size: 50px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.movie-card-container {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: auto auto auto auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 40px;
+
+}
+.movie-card {
+  background-color: #241f38;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.movie-card-image {
+  max-width: 100%; /* Ensure the image fits within the card */
+  height: auto;
+  border-radius: 5px;
+}
+
+.movie-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
